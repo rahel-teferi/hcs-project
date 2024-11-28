@@ -18,6 +18,10 @@ article {
     margin: 10px 30px;
 }
 
+article h1 {
+    padding: 20px;
+}
+
 .gallery {
     width: 80%;
     margin: 50px auto;
@@ -25,5 +29,20 @@ article {
 
 .gallery img {
     width: 200px;
+
+}
+
+.weather {
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 250px;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.weatherForcast {
+    background-color: rgba(239, 178, 178, 0.5);
+    width: 500px;
+    margin: auto;
+    padding: 20px 40px;
 
 }
