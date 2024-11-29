@@ -67,7 +67,7 @@ let questionsAsked = "";
 let popupEl = document.querySelector("dialog");
 let closeEl = document.querySelector("dialog>button");
 let answerEl;
-
+let allAskedQ = "";
 getQuiz();
 
 function getQuiz() {
@@ -80,19 +80,21 @@ function getQuiz() {
   cEl.textContent = allQuestions[randomQ].options[2];
   dEl.textContent = allQuestions[randomQ].options[3];
   // questionsAsked += `Question:- ${allQuestions[randomQ].question} And the Answer is ${allQuestions[randomQ].answer}   `;
-  console.log(`the question is ${allQuestions[randomQ].question}`);
+  questionsAsked = `{
+    question: ${allQuestions[randomQ].question},
+    options: ${[allQuestions[randomQ].options]},
+    answer: ${allQuestions[randomQ].answer},
+  }`;
 }
 
 function checkAnswer() {
   let selectedOption = document.querySelector('input[name="option"]:checked');
   //   console.log(points + "before");
   if (selectedOption.nextSibling.textContent === answerEl) {
-    console.log(`the Answer is ${answerEl}`);
     // popupEl.closeModal();
 
     points++;
   } else {
-    console.log(`the Answer is ${answerEl}`);
     alert(`You got that wrong, the right Answer is :${answerEl}`);
 
     points;
@@ -111,14 +113,16 @@ checkQ.addEventListener("click", function () {
 nextQ.addEventListener("click", function () {
   if (totalQ < 5) {
     getQuiz();
+    allAskedQ += questionsAsked;
     totalQ += 1;
     numberOfQ.textContent = totalQ;
     options.forEach((option) => {
       option.checked = false;
     });
   } else {
-    // alert("You finished your 5 questions!");
-    console.log(questionsAsked);
+    alert("You finished your 5 questions!");
+    allAskedQ += questionsAsked;
+    console.log(`Questions asked and Answers ${allAskedQ}`);
   }
 });
 // closeEl.addEventListener("click", function () {
