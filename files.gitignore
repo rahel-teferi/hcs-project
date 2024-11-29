@@ -1,4 +1,3 @@
-apiid
-apikey
-
-APIID=2761fe02cac80b591fc1acc1dfb15375
+/appid,
+*api_keys.txt
+/APIID=2761fe02cac80b591fc1acc1dfb15375

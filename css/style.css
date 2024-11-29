@@ -266,3 +266,10 @@ dialog button {
     border-radius: 8px;
     border: none;
 }
+
+#map {
+    height: 280px;
+    margin-bottom: 50px;
+    ;
+
+}

@@ -67,8 +67,8 @@ let questionsAsked = {};
 let popupEl = document.querySelector("dialog");
 let closeEl = document.querySelector("dialog>button");
 let answerEl;
-let allAskedQ = "";
-let correctlyAnswered;
+let allAskedQ = [];
+
 getQuiz();
 
 function getQuiz() {
@@ -80,16 +80,18 @@ function getQuiz() {
   bEl.textContent = allQuestions[randomQ].options[1];
   cEl.textContent = allQuestions[randomQ].options[2];
   dEl.textContent = allQuestions[randomQ].options[3];
-  // questionsAsked += `Question:- ${allQuestions[randomQ].question} And the Answer is ${allQuestions[randomQ].answer}   `;
-  questionsAsked = `{
-    question: ${allQuestions[randomQ].question},
-    options: ${[allQuestions[randomQ].options]},
-    answer: ${allQuestions[randomQ].answer},
-  }`;
+
+  questionsAsked = {
+    question: allQuestions[randomQ].question,
+    options: [allQuestions[randomQ].options],
+    answer: allQuestions[randomQ].answer,
+  };
+  // console.log(questionsAsked);
 }
 
 function checkAnswer() {
   let selectedOption = document.querySelector('input[name="option"]:checked');
+  let isAnswered = {};
   //   console.log(points + "before");
   if (selectedOption.nextSibling.textContent === answerEl) {
     // popupEl.closeModal();
@@ -98,7 +100,10 @@ function checkAnswer() {
       option.setAttribute("disabled", true);
     }
     checkQ.disabled = true;
-    correctlyAnswered = "Correctly Answered";
+
+    isAnswered = { Answered: "Correctly Answered" };
+    Object.assign(questionsAsked, isAnswered);
+    console.log(questionsAsked);
   } else {
     points;
     for (let option of options) {
@@ -106,9 +111,8 @@ function checkAnswer() {
     }
     checkQ.disabled = true;
     alert(`You got that wrong, the right Answer is :${answerEl}`);
-    correctlyAnswered = "Not Answered correctly";
-
-    // console.log(points + "after");
+    isAnswered = { Answered: "Not Answered correctly" };
+    Object.assign(questionsAsked, isAnswered);
   }
 
   return points;
@@ -122,8 +126,9 @@ checkQ.addEventListener("click", function () {
 nextQ.addEventListener("click", function () {
   if (totalQ < 5) {
     getQuiz();
-    questionsAsked.push({ Answered: correctlyAnswered });
-    allAskedQ += questionsAsked;
+
+    allAskedQ.push(questionsAsked);
+    // console.log(allAskedQ);
     totalQ += 1;
     numberOfQ.textContent = totalQ;
     options.forEach((option) => {
@@ -134,14 +139,13 @@ nextQ.addEventListener("click", function () {
     nextQ.disabled = true;
   } else {
     alert("You finished your 5 questions!");
-    questionsAsked.push({ Answered: correctlyAnswered });
-    allAskedQ += questionsAsked;
+    allAskedQ.push(questionsAsked);
     console.log(allAskedQ);
     for (let option of options) {
       option.setAttribute("disabled", true);
     }
   }
 });
-// closeEl.addEventListener("click", function () {
-//   popupEl.close;
-// });
+closeEl.addEventListener("click", function () {
+  popupEl.close;
+});
