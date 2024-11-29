@@ -1,8 +1,8 @@
 const url =
-  "https://api.openweathermap.org/data/2.5/weather?appid=2761fe02cac80b591fc1acc1dfb15375&units=metric&q=Berlin";
+  "https://api.openweathermap.org/data/2.5/weather?appid={apikey}&units=metric&q=Berlin";
 
 const url2 =
-  "https://api.openweathermap.org/data/2.5/forecast?q=Berlin&appid=2761fe02cac80b591fc1acc1dfb15375&units=metric";
+  "https://api.openweathermap.org/data/2.5/forecast?q=Berlin&appid={apikey}&units=metric";
 
 const weatherEl = document.querySelector(".iconandtemp");
 

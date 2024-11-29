@@ -63,11 +63,12 @@ let options = document.querySelectorAll("input");
 let numberOfQ = document.querySelector(".numberOfQ");
 let points = 0;
 let totalQ = 1;
-let questionsAsked = "";
+let questionsAsked = {};
 let popupEl = document.querySelector("dialog");
 let closeEl = document.querySelector("dialog>button");
 let answerEl;
 let allAskedQ = "";
+let correctlyAnswered;
 getQuiz();
 
 function getQuiz() {
@@ -92,37 +93,53 @@ function checkAnswer() {
   //   console.log(points + "before");
   if (selectedOption.nextSibling.textContent === answerEl) {
     // popupEl.closeModal();
-
     points++;
+    for (let option of options) {
+      option.setAttribute("disabled", true);
+    }
+    checkQ.disabled = true;
+    correctlyAnswered = "Correctly Answered";
   } else {
-    alert(`You got that wrong, the right Answer is :${answerEl}`);
-
     points;
+    for (let option of options) {
+      option.setAttribute("disabled", true);
+    }
+    checkQ.disabled = true;
+    alert(`You got that wrong, the right Answer is :${answerEl}`);
+    correctlyAnswered = "Not Answered correctly";
 
     // console.log(points + "after");
   }
 
   return points;
 }
-
 checkQ.addEventListener("click", function () {
   checkAnswer();
   result.textContent = points;
+  nextQ.disabled = false;
 });
 
 nextQ.addEventListener("click", function () {
   if (totalQ < 5) {
     getQuiz();
+    questionsAsked.push({ Answered: correctlyAnswered });
     allAskedQ += questionsAsked;
     totalQ += 1;
     numberOfQ.textContent = totalQ;
     options.forEach((option) => {
       option.checked = false;
+      option.disabled = false;
     });
+    checkQ.disabled = false;
+    nextQ.disabled = true;
   } else {
     alert("You finished your 5 questions!");
+    questionsAsked.push({ Answered: correctlyAnswered });
     allAskedQ += questionsAsked;
-    console.log(`Questions asked and Answers ${allAskedQ}`);
+    console.log(allAskedQ);
+    for (let option of options) {
+      option.setAttribute("disabled", true);
+    }
   }
 });
 // closeEl.addEventListener("click", function () {
