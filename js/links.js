@@ -35,8 +35,23 @@ fetch(url2)
 
     document.querySelector(
       ".weatherForcast"
-    ).innerHTML = `<p>Weather Forcast for the coming 5 days in Berlin</p><p>${data.list[0].dt_txt} - <img src="${iconLink}"> Temp - ${data.list[0].main.temp}&#8451</p><p>${data.list[8].dt_txt} - <img src="${iconLink}"> Temp - ${data.list[8].main.temp}&#8451</p>
+    ).innerHTML += `<p>${data.list[0].dt_txt} - <img src="${iconLink}"> Temp - ${data.list[0].main.temp}&#8451</p><p>${data.list[8].dt_txt} - <img src="${iconLink}"> Temp - ${data.list[8].main.temp}&#8451</p>
     <p>${data.list[16].dt_txt} - <img src="${iconLink}"> Temp - ${data.list[16].main.temp}&#8451</p>
     <p>${data.list[24].dt_txt} - <img src="${iconLink}"> Temp - ${data.list[24].main.temp}&#8451</p>
     <p>${data.list[32].dt_txt} - <img src="${iconLink}"> Temp - ${data.list[32].main.temp}&#8451</p>`;
   });
+let closeBtn = document.querySelector(".modal span");
+let images = document.querySelectorAll(".gallery__images img");
+let modalEl = document.querySelector(".modal img");
+
+for (let image of images) {
+  image.addEventListener("click", function () {
+    modalEl.setAttribute("src", image.getAttribute("src"));
+    console.log(modalEl.getAttribute("src"));
+    // modalEl.setAttribute("src", image.getAttribute("src"));
+    modalEl.parentElement.style.display = "flex";
+  });
+}
+closeBtn.addEventListener("click", function () {
+  modalEl.parentElement.style.display = "none";
+});

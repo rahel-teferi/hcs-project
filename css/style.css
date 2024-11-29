@@ -36,24 +36,36 @@ li a {
     text-decoration: none;
 }
 
-nav li a:hover {
+nav li a:hover,
+nav li a:focus {
     text-decoration: solid;
     color: rgb(248, 246, 249);
     background: rgb(8, 94, 199);
     padding: 5px;
-    ;
     border-radius: 8px;
-    ;
 }
+
+/* .focus {
+    text-decoration: solid;
+    color: rgb(248, 246, 249);
+    background: rgb(8, 94, 199);
+    padding: 5px;
+    border-radius: 8px;
+} */
+
 
 .hide {
     display: block;
 }
 
 .about {
-    width: 80%;
+    width: 90%;
     padding: 50px 20px;
     margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
 
 }
 
@@ -65,7 +77,7 @@ nav li a:hover {
 .about__para {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     gap: 50px;
 
 }
@@ -97,7 +109,7 @@ blockquote {
 
 .links {
     width: 100%;
-    margin: auto;
+    margin: 30px auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -105,12 +117,13 @@ blockquote {
 
 .links__h2 {
     text-align: center;
+    padding: 30px 0;
 }
 
 .list {
-    width: 200px;
-    height: 200px;
-    margin: 10px;
+    width: 300px;
+    height: 300px;
+    margin: auto;
     background-color: rgba(0, 0, 0, 0.2);
     text-align: center;
     border: 2px solid rgba(48, 45, 45, 0.5);
@@ -139,6 +152,13 @@ blockquote {
     list-style: none;
 }
 
+.seeMore {
+    border: 1px solid grey;
+    width: 80px;
+    border-radius: 15px;
+    margin-top: 20px;
+
+}
 
 .location {
     text-align: center;
@@ -199,7 +219,8 @@ footer p {
 
 .trivia-qa {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin: 50px auto;
     width: 80%;
 }
@@ -218,4 +239,30 @@ fieldset {
 
 .btNext {
     text-align: right;
+}
+
+form:nth-of-type(button) {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+dialog {
+    width: 300px;
+    background-color: grey;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    margin: 20px;
+    padding: 30px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 10px 10px 2;
+}
+
+dialog button {
+    width: 50px;
+    border-radius: 8px;
+    border: none;
 }
