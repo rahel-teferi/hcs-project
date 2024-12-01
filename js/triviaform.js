@@ -1,56 +1,3 @@
-const allQuestions = [
-  {
-    question: "What is the fastest land animal in the world?",
-    options: ["Lion", "Cheetah", "Tiger", "Horse"],
-    answer: "Cheetah",
-  },
-  {
-    question: "Which of these animals is a mammal?",
-    options: ["Snake", "Whale", "Frog", "Eagle"],
-    answer: "Whale",
-  },
-  {
-    question: "What do pandas mainly eat?",
-    options: ["Bamboo", "Fish", "Grass", "Honey"],
-    answer: "Bamboo",
-  },
-  {
-    question: "What type of animal is a Komodo dragon?",
-    options: ["Snake", "Lizard", "Turtle", "Frog"],
-    answer: "Lizard",
-  },
-  {
-    question: "Which bird is known for its colorful tail feathers?",
-    options: ["Sparrow", "Peacock", "Parrot", "Owl"],
-    answer: "Peacock",
-  },
-  {
-    question:
-      "Which animal can change its color to blend with its surroundings?",
-    options: ["Chameleon", "Elephant", "Dolphin", "Kangaroo"],
-    answer: "Chameleon",
-  },
-  {
-    question: "What is a baby kangaroo called?",
-    options: ["Cub", "Joey", "Kitten", "Calf"],
-    answer: "Joey",
-  },
-  {
-    question: "Where do penguins live?",
-    options: ["Desert", "Rainforest", "Arctic and Antarctic", "Grasslands"],
-    answer: "Arctic and Antarctic",
-  },
-  {
-    question: "Which of these animals is known as the 'King of the Jungle'?",
-    options: ["Lion", "Tiger", "Elephant", "Bear"],
-    answer: "Lion",
-  },
-  {
-    question: "What do dolphins use to breathe?",
-    options: ["Gills", "Blowholes", "Mouth", "Fins"],
-    answer: "Blowholes",
-  },
-];
 let questionsEl = document.querySelector("#questions");
 let aEl = document.querySelector("#optionA");
 let bEl = document.querySelector("#optionB");
@@ -58,77 +5,93 @@ let cEl = document.querySelector("#optionC");
 let dEl = document.querySelector("#optionD");
 let checkQ = document.querySelector("#btCheck");
 let result = document.querySelector(".result");
-let nextQ = document.querySelector("#btNext");
+let nextQ = document.querySelector(".btNext");
 let options = document.querySelectorAll("input");
 let numberOfQ = document.querySelector(".numberOfQ");
 let points = 0;
 let totalQ = 1;
 let questionsAsked = {};
-let popupEl = document.querySelector("dialog");
-let closeEl = document.querySelector("dialog>button");
+let popupEl = document.querySelector(".popup");
+let correctEl = document.querySelector(".correct");
+let incorrectEl = document.querySelector(".incorrect");
+let passedEl = document.querySelector(".passed");
+let closeEl = document.querySelectorAll(".closeBtn");
 let answerEl;
 let allAskedQ = [];
+let newQuizEl = document.querySelector(".newQuiz");
+
+url = "http://localhost:3000/allQuestions";
+
+newQuizEl.addEventListener("click", function () {
+  location.reload();
+});
 
 getQuiz();
-
 function getQuiz() {
-  const randomQ = Math.ceil(Math.random() * allQuestions.length - 1);
-  answerEl = allQuestions[randomQ].answer;
-  questionsEl.textContent = allQuestions[randomQ].question;
-
-  aEl.textContent = allQuestions[randomQ].options[0];
-  bEl.textContent = allQuestions[randomQ].options[1];
-  cEl.textContent = allQuestions[randomQ].options[2];
-  dEl.textContent = allQuestions[randomQ].options[3];
-
-  questionsAsked = {
-    question: allQuestions[randomQ].question,
-    options: [allQuestions[randomQ].options],
-    answer: allQuestions[randomQ].answer,
-  };
-  // console.log(questionsAsked);
+  fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        Promise.reject("url does not found");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      showQuiz(data);
+    });
 }
 
-function checkAnswer() {
-  let selectedOption = document.querySelector('input[name="option"]:checked');
+function showQuiz(data) {
+  const randomQ = Math.ceil(Math.random() * data.length - 1);
+  answerEl = data[randomQ].answer;
+  questionsEl.textContent = data[randomQ].question;
+
+  aEl.textContent = data[randomQ].options[0];
+  bEl.textContent = data[randomQ].options[1];
+  cEl.textContent = data[randomQ].options[2];
+  dEl.textContent = data[randomQ].options[3];
+
+  questionsAsked = data[randomQ];
+}
+
+checkQ.addEventListener("click", function () {
+  let selectedOption = document.querySelector("input:checked");
   let isAnswered = {};
-  //   console.log(points + "before");
   if (selectedOption.nextSibling.textContent === answerEl) {
-    // popupEl.closeModal();
     points++;
+    // correctEl.showModal();
     for (let option of options) {
       option.setAttribute("disabled", true);
     }
     checkQ.disabled = true;
 
-    isAnswered = { Answered: "Correctly Answered" };
+    isAnswered = { answered: true };
     Object.assign(questionsAsked, isAnswered);
     console.log(questionsAsked);
+    nextQuestion();
   } else {
     points;
+    incorrectEl.showModal();
     for (let option of options) {
       option.setAttribute("disabled", true);
     }
     checkQ.disabled = true;
-    alert(`You got that wrong, the right Answer is :${answerEl}`);
-    isAnswered = { Answered: "Not Answered correctly" };
+    isAnswered = { answered: false };
     Object.assign(questionsAsked, isAnswered);
+    console.log(questionsAsked);
+    nextQuestion();
   }
 
-  return points;
-}
-checkQ.addEventListener("click", function () {
-  checkAnswer();
   result.textContent = points;
   nextQ.disabled = false;
 });
 
-nextQ.addEventListener("click", function () {
+// nextQ.addEventListener("click", function () {
+function nextQuestion() {
   if (totalQ < 5) {
     getQuiz();
 
     allAskedQ.push(questionsAsked);
-    // console.log(allAskedQ);
+
     totalQ += 1;
     numberOfQ.textContent = totalQ;
     options.forEach((option) => {
@@ -138,14 +101,21 @@ nextQ.addEventListener("click", function () {
     checkQ.disabled = false;
     nextQ.disabled = true;
   } else {
-    alert("You finished your 5 questions!");
+    passedEl.innerHTML = points;
+    popupEl.showModal();
     allAskedQ.push(questionsAsked);
     console.log(allAskedQ);
     for (let option of options) {
       option.setAttribute("disabled", true);
     }
+
+    nextQ.disabled = true;
   }
-});
-closeEl.addEventListener("click", function () {
-  popupEl.close;
-});
+}
+// });
+
+for (let close of closeEl) {
+  close.addEventListener("click", function () {
+    close.parentElement.close();
+  });
+}

@@ -5,13 +5,16 @@
 figure {
     float: right;
     padding: 30px;
-    margin: 50px auto;
-    align-content: center;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+
 }
 
 figure img {
     width: 300px;
     height: 300px;
+
 }
 
 article {
@@ -22,20 +25,65 @@ article h1 {
     padding: 20px;
 }
 
+
+.weatherData {
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 70%;
+    max-width: 1000px;
+    padding: 10px 15px;
+    margin: 50px auto;
+
+
+}
+
+.weather {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: auto;
+    padding: 30px;
+    flex-wrap: wrap;
+
+}
+
+
+
+.weatherForcast {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: auto;
+    padding: 30px;
+    flex-wrap: wrap;
+
+
+}
+
+.weatherForcast span {
+    display: flex;
+    flex-direction: column;
+
+}
+
+
 .gallery {
     width: 80%;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
-    margin: 50px auto;
+    justify-content: center;
+    margin: auto;
+
 
 }
 
 .gallery__images {
-    flex-wrap: wrap;
+    width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 50px;
+    margin: auto;
 }
 
 .gallery img {
@@ -47,21 +95,6 @@ article h1 {
 .gallery img:hover {
     opacity: 0.7;
     zoom: 1.005;
-}
-
-.weather {
-    background-color: rgba(0, 0, 0, 0.1);
-    width: 250px;
-    padding: 20px;
-    border-radius: 15px;
-}
-
-.weatherForcast {
-    background-color: rgba(0, 0, 0, 0.5);
-    width: 500px;
-    margin: auto;
-    margin-bottom: 20px;
-    padding: 20px 40px;
 }
 
 
@@ -95,5 +128,11 @@ article h1 {
     height: 30px;
     border: 2px solid red;
     border-radius: 50%;
-    ;
+
+}
+
+@media only screen and (min-width:1690px) {
+    .gallery__images {
+        gap: 100px;
+    }
 }
