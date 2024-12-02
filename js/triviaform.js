@@ -5,27 +5,24 @@ let cEl = document.querySelector("#optionC");
 let dEl = document.querySelector("#optionD");
 let checkQ = document.querySelector("#btCheck");
 let result = document.querySelector(".result");
-let nextQ = document.querySelector(".btNext");
 let options = document.querySelectorAll("input");
 let numberOfQ = document.querySelector(".numberOfQ");
 let points = 0;
 let totalQ = 1;
 let questionsAsked = {};
 let popupEl = document.querySelector(".popup");
-let correctEl = document.querySelector(".correct");
+let correctEl = document.querySelector(".chooseOption");
 let incorrectEl = document.querySelector(".incorrect");
 let passedEl = document.querySelector(".passed");
 let closeEl = document.querySelectorAll(".closeBtn");
 let answerEl;
 let allAskedQ = [];
 let newQuizEl = document.querySelector(".newQuiz");
-
+//we have to first open the local node server.
 url = "http://localhost:3000/allQuestions";
-
 newQuizEl.addEventListener("click", function () {
   location.reload();
 });
-
 getQuiz();
 function getQuiz() {
   fetch(url)
@@ -37,61 +34,58 @@ function getQuiz() {
     })
     .then((data) => {
       showQuiz(data);
+    })
+    .catch((error) => {
+      alert(error);
     });
 }
-
 function showQuiz(data) {
   const randomQ = Math.ceil(Math.random() * data.length - 1);
   answerEl = data[randomQ].answer;
   questionsEl.textContent = data[randomQ].question;
-
   aEl.textContent = data[randomQ].options[0];
   bEl.textContent = data[randomQ].options[1];
   cEl.textContent = data[randomQ].options[2];
   dEl.textContent = data[randomQ].options[3];
-
   questionsAsked = data[randomQ];
 }
-
 checkQ.addEventListener("click", function () {
   let selectedOption = document.querySelector("input:checked");
   let isAnswered = {};
-  if (selectedOption.nextSibling.textContent === answerEl) {
-    points++;
-    // correctEl.showModal();
-    for (let option of options) {
-      option.setAttribute("disabled", true);
-    }
-    checkQ.disabled = true;
-
-    isAnswered = { answered: true };
-    Object.assign(questionsAsked, isAnswered);
-    console.log(questionsAsked);
-    nextQuestion();
+  if (selectedOption == null) {
+    correctEl.showModal();
   } else {
-    points;
-    incorrectEl.showModal();
-    for (let option of options) {
-      option.setAttribute("disabled", true);
+    if (selectedOption.nextSibling.textContent === answerEl) {
+      points++;
+      // correctEl.showModal();
+      for (let option of options) {
+        option.setAttribute("disabled", true);
+      }
+      checkQ.disabled = true;
+      isAnswered = { answered: true };
+      Object.assign(questionsAsked, isAnswered);
+      console.log(questionsAsked);
+      nextQuestion();
+    } else {
+      points;
+      incorrectEl.showModal();
+      for (let option of options) {
+        option.setAttribute("disabled", true);
+      }
+      checkQ.disabled = true;
+      isAnswered = { answered: false };
+      Object.assign(questionsAsked, isAnswered);
+      console.log(questionsAsked);
+      nextQuestion();
     }
-    checkQ.disabled = true;
-    isAnswered = { answered: false };
-    Object.assign(questionsAsked, isAnswered);
-    console.log(questionsAsked);
-    nextQuestion();
   }
-
   result.textContent = points;
-  nextQ.disabled = false;
 });
 
-// nextQ.addEventListener("click", function () {
 function nextQuestion() {
   if (totalQ < 5) {
     getQuiz();
-
     allAskedQ.push(questionsAsked);
-
     totalQ += 1;
     numberOfQ.textContent = totalQ;
     options.forEach((option) => {
@@ -99,7 +93,6 @@ function nextQuestion() {
       option.disabled = false;
     });
     checkQ.disabled = false;
-    nextQ.disabled = true;
   } else {
     passedEl.innerHTML = points;
     popupEl.showModal();
@@ -108,12 +101,8 @@ function nextQuestion() {
     for (let option of options) {
       option.setAttribute("disabled", true);
     }
-
-    nextQ.disabled = true;
   }
 }
-// });
-
 for (let close of closeEl) {
   close.addEventListener("click", function () {
     close.parentElement.close();
