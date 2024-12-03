@@ -20,13 +20,21 @@
     <header>
         <a class="logo" href="../html/index.html"><img src="../images/logo-2.png"></a>
         <nav>
-            <ul>
-                <li class="hide"><i class='bx bx-menu'></i></li>
+            <ul class="nav__ul">
+                <li class="openMenu" onclick="openNav()"><i class='bx bx-menu'></i></li>
+                <li class="menuHide"><a href="../html/index.html">Home</a></li>
+                <li class="menuHide"><a href="../html/about.html">About</a></li>
+                <li class="menuHide"><a href="../html/trivia-game.html">Trivia</a></li>
+            </ul>
+            <ul class="sideNav">
+                <li class="closeMenu" onclick="closeNav()">X</i></li>
                 <li><a href="../html/index.html">Home</a></li>
                 <li><a href="../html/about.html">About</a></li>
-
-                <li><a href="#">Trivia</a></li>
-
+                <li><a href="../html/trivia-game.html">Trivia</a></li>
+                <li><a href="../html/Mammals.html">Mammals</a></li>
+                <li><a href="../html/fishes.html">Fishes</a></li>
+                <li><a href="../html/repitiles.html">Repitiles</a></li>
+                <li><a href="../html/birds.html">Birds</a></li>
             </ul>
         </nav>
     </header>
@@ -81,6 +89,7 @@
         </footer>
     </main>
     <script src="../js/triviaform.js"></script>
+    <script src="../js/index.js"></script>
 </body>
 
 </html>

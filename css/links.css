@@ -33,10 +33,22 @@ article {
     margin: 50px auto;
 }
 
-h3 {
-    margin: 50px 200px;
+.weatherQuot {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    max-width: 900px;
+    margin: auto;
+    border: 2px dotted grey
+}
+
+blockquote,
+em {
+    margin: auto;
+
     text-align: center;
-    font-size: 1rem;
+    font-family: "Yuji Mai", serif;
 }
 
 .weather {
@@ -107,6 +119,7 @@ h3 {
     align-items: center;
     overflow-y: auto;
     overflow-x: auto;
+    border-radius: 12px;
 }
 
 .gallery-modal img {
@@ -140,4 +153,10 @@ h3 {
     top: 0;
     right: 0;
 
+}
+
+@media screen and (max-width:600px) {
+    .weatherQuot {
+        margin: 20px;
+    }
 }

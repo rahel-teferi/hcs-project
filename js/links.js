@@ -72,5 +72,3 @@ for (let image of images) {
 closeBtn.addEventListener("click", function () {
   modalEl.close();
 });
-
-let animalsEl = document.querySelector(".animals");
