@@ -1,4 +1,6 @@
-* {
+*,
+::before,
+::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -10,35 +12,39 @@ header {
     align-items: center;
     margin: 10px 100px;
     min-width: 144px;
-    height: 35px;
     z-index: 999;
+}
+
+.logo {
+    border-radius: 10px;
+    width: 100px;
 }
 
 nav ul {
     display: flex;
-    text-decoration: none;
+    list-style: none;
     gap: 60px;
     align-items: center;
     justify-content: center;
     margin-bottom: 0;
 }
 
-.hide {
-    display: block;
-    color: blue;
-}
-
 nav li {
     list-style: none;
     justify-content: center;
     display: none;
+    height: 60px;
+    align-items: center;
+}
 
+.hide {
+    display: flex;
+    color: blue;
 }
 
 li a {
     text-decoration: none;
 }
-
 
 nav li a:hover {
     text-decoration: solid;
@@ -56,7 +62,6 @@ nav li a:hover {
     flex-direction: column;
     align-content: center;
     justify-content: center;
-
 }
 
 .about h2 {
@@ -69,7 +74,6 @@ nav li a:hover {
     flex-wrap: wrap;
     justify-content: center;
     gap: 50px;
-
 }
 
 .about__para div {
@@ -143,19 +147,11 @@ blockquote {
     margin-top: 10px;
     text-align: center;
     background-color: skyblue;
-
-}
-
-.location {
-    text-align: center;
-    padding: 20px;
-
 }
 
 footer {
     background-color: rgb(110, 152, 228);
     text-align: center;
-
 }
 
 footer p {
@@ -179,7 +175,6 @@ footer p {
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .social-media li i:hover {
@@ -195,15 +190,13 @@ footer p {
 }
 
 @media only screen and (min-width:600px) {
-    nav li {
-        display: flex;
-    }
-
     .hide {
         display: none;
     }
 
-
+    nav li {
+        display: flex;
+    }
 }
 
 @media only screen and (max-width:850px) {
@@ -223,64 +216,15 @@ footer p {
 
     header {
         margin: 0 50px;
-
     }
-
-    form {
-        width: 60%;
-        font-size: 1.5rem;
-    }
-
-}
-
-.trivia-qa {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 50px auto;
-    width: 100%;
-
-}
-
-form {
-    background-color: rgba(0, 0, 0, 0.3);
-    width: 80%;
-    padding: 20px;
-    max-width: 600px;
-}
-
-fieldset {
-    border: 2px solid grey;
-    align-items: center;
-    padding: 20px;
-    font-size: 1rem;
-}
-
-form:nth-of-type(button) {
-    background: rgba(0, 0, 0, 0.8);
-}
-
-.popup,
-.correct,
-.incorrect {
-    width: 300px;
-    background-color: rgb(172, 185, 197);
-    left: 50%;
-    top: 50%;
-    /* display: flex; */
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    margin: 20px;
-    padding: 30px;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 10px 10px 2;
 }
 
 #map {
     height: 280px;
-    margin-bottom: 50px;
-    ;
+    margin: 50px 30px;
+}
 
+.location {
+    text-align: center;
+    padding: 20px;
 }

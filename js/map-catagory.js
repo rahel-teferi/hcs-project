@@ -1,3 +1,4 @@
+//location on map
 var map = L.map("map").setView([52.52001, 13.40495], 2);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
