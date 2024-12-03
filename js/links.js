@@ -8,9 +8,8 @@ const url2 =
 let cityNames = ["Berlin", "New York", "Republic of Malta", "Addis Ababa"];
 const randomCity = Math.ceil(Math.random() * cityNames.length - 1);
 let city = cityNames[randomCity];
-setInterval(function () {
-  currentWeather(city);
-}, 600);
+
+currentWeather(city);
 
 async function currentWeather(city) {
   try {
@@ -22,7 +21,7 @@ async function currentWeather(city) {
 
     let iconLink = `https://openweathermap.org/img/w/${data.weather[0].icon}.png`;
 
-    weatherEl.innerHTML = `${city}<img src=${iconLink}>${data.main.temp} &#8451 ${data.weather[0].description}`;
+    weatherEl.innerHTML += `${city}<img src=${iconLink}>${data.main.temp} &#8451 ${data.weather[0].description}`;
   } catch (error) {
     alert(error);
   }

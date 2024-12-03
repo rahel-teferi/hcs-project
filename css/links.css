@@ -33,6 +33,12 @@ article {
     margin: 50px auto;
 }
 
+h3 {
+    margin: 50px 200px;
+    text-align: center;
+    font-size: 1rem;
+}
+
 .weather {
     display: flex;
     justify-content: space-evenly;
