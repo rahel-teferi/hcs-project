@@ -81,6 +81,28 @@ nav li a:hover {
     background-color: white;
 }
 
+.catagory {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: start;
+    margin-top: auto;
+    width: 100px;
+    z-index: 999;
+    background-color: white;
+    padding: 10px;
+    ;
+}
+
+.catagory li {
+    list-style: none;
+    justify-content: center;
+
+    height: 30px;
+    display: flex;
+    z-index: 999;
+
+}
+
 .sideNav li {
 
     list-style: none;
