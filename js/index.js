@@ -9,11 +9,3 @@ function closeNav() {
 }
 
 let catagoryEl = document.querySelector(".catagory");
-
-function openCatagory() {
-  if (catagoryEl.style.display == "block") {
-    catagoryEl.style.display = "none";
-  } else {
-    catagoryEl.style.display = "block";
-  }
-}

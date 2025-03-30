@@ -98,7 +98,7 @@ function showQuiz() {
 checkQ.addEventListener("click", function () {
   let selectedOption = document.querySelector("input:checked");
   let isAnswered = {};
-  if (selectedOption == null) {
+  if (!selectedOption) {
     chooseOptionEl.showModal();
   } else if (selectedOption.nextSibling.textContent === answerEl) {
     points++;
@@ -111,7 +111,6 @@ checkQ.addEventListener("click", function () {
     console.log(questionAsked);
     nextQuestion();
   } else {
-    points;
     incorrectEl.showModal();
     for (let option of options) {
       option.setAttribute("disabled", true);
@@ -140,8 +139,9 @@ function nextQuestion() {
   } else {
     passedEl.innerHTML = points;
     popupEl.showModal();
+    incorrectEl.close();
     allAskedQ.push(questionAsked);
-    console.log(allAskedQ);
+    // console.log(allAskedQ);
     for (let option of options) {
       option.setAttribute("disabled", true);
     }
